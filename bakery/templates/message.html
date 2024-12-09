@@ -1,0 +1,35 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Customer Message</h1>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <h2>Customer Information</h2>
+    {{ customer_form.as_p }}  
+    <h2>Message</h2>
+    {{ message_form.as_p }}  
+    <button type="submit">Send Message</button>
+</form>
+
+{% if customer_form.errors or message_form.errors %}
+    <div class="errors">
+        <p>There were errors in your submission. Please correct the fields below:</p>
+        <ul>
+            {% for field in customer_form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            
+            {% for field in message_form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Bread Blog Posts</h1>
+<div class="posts">
+    {% for post in posts %}
+    <div class="post-item">
+        <h3>{{ post.name }}</h3>
+        <img src="{{ post.image.url }}" alt="{{ post.name }}" style="max-width: 100%; height: auto;" />
+        <p>{{ post.description }}</p>
+        <p><strong>Ingredients:</strong> {{ post.ingredients }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
