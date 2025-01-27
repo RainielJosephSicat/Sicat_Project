@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Customer Messages</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Customer Name</th> 
+
+            <th>Reserved Orders</th>
+
+
+
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for message in messages %}
+        <tr>
+            <td>{{ message.customer.name }}</td>
+            <td>{{ message.message }}</td>
+            <tr>
+            <td>
+                <a href="{% url 'message-edit' message.pk %}">Change?</a> |
+                <a href="{% url 'message-delete' message.pk %}">Remove Order</a>
+            </td>
+        </tr>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -4,10 +4,29 @@ from django.urls import reverse_lazy
 from .models import BreadProduct, BreadPost
 from django.shortcuts import render, redirect
 from .forms import CustomerMessageForm, CustomerInfoForm
+from django.views.generic import ListView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import CustomerMessage
+
+class MessageListView(ListView):
+    model = CustomerMessage
+    template_name = 'message_list.html'
+    context_object_name = 'messages'
+
+class MessageUpdateView(UpdateView):
+    model = CustomerMessage
+    fields = ['message']
+    template_name = 'message_form.html'
+    success_url = reverse_lazy('message-list')
+
+class MessageDeleteView(DeleteView):
+    model = CustomerMessage
+    template_name = 'message_confirm_delete.html'
+    success_url = reverse_lazy('message-list')
 
 class CustomerMessageView(FormView):
     template_name = 'message.html'
-    success_url = '/'  # Redirect to home after successful submission
+    success_url = '/' 
 
     def get(self, request, *args, **kwargs):
         customer_form = CustomerInfoForm()
